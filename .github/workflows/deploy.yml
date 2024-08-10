@@ -26,7 +26,7 @@ jobs:
 
       - name: Build the project
         run: npm run build
-      # start / restart
+
       - name: Check if process exists and start/restart
         run: |
           if pm2 describe nextjs-app > /dev/null; then
