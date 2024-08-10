@@ -1,5 +1,7 @@
 "use server";
 
+import logger from "@/utils/logger";
+
 interface IndexServicePropTypes {
   baseUrl?: string;
   endpoint: string;
@@ -38,6 +40,7 @@ const indexServiceAction = async ({
       switch (response.status) {
         case 500:
           throw new Error("Service failed!", { cause: "SERVER_APP" });
+          logger.error("Service failed | " + response.status);
         case 400:
           throw new Error("Invalid data were passes!"!, {
             cause: "SERVER_APP",
@@ -47,9 +50,9 @@ const indexServiceAction = async ({
       }
     }
 
-    const data = await response.json();   
+    const data = await response.json();
     return data;
-  } catch (error) {   
+  } catch (error) {
     if (error instanceof Error) {
       if (error.cause === "SERVER_APP") {
         throw new Error(error.message, { cause: error.cause });
