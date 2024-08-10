@@ -10,23 +10,27 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'  # Use Node.js 20
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" # Use Node.js 20
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install PM2
-      run: npm install -g pm2
+      - name: Install PM2
+        run: npm install -g pm2
 
-    - name: Build the project
-      run: npm run build
+      - name: Build the project
+        run: npm run build
 
-    - name: Start or Restart the server
-      run: |
-        pm2 restart nextjs-app || pm2 start npm --name "nextjs-app" -- run start
+      - name: Check if process exists and start/restart
+        run: |
+          if pm2 describe nextjs-app > /dev/null; then
+            pm2 restart nextjs-app
+          else
+            pm2 start npm --name "nextjs-app" -- run start
+          fi
