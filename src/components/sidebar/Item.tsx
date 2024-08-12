@@ -18,7 +18,7 @@ const Item = (item: SidebarItemTypes) => {
 
   const setHeroSectionHandler = (heroPayload: HeroSectionTypes) => {
     dispatch(setHeroSecAct(heroPayload));
-    router.replace(heroPayload.path);
+    router.replace(`/${heroPayload.path}`);
   };
 
   return (
