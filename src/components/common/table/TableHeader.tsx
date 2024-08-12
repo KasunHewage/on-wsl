@@ -15,8 +15,8 @@ const TableHeader = () => {
         {/* <span className=" bg-gray-50 dark:bg-gray-dark-50 text-gray-300 dark:text-gray-dark-300 rounded-full w-56 py-2 px-4">
           Search
         </span> */}
-        <TextInput placeholder="Search here..." rounded="rounded-full">
-          <User01 className=" size-4" />
+        <TextInput placeholder="Search here...">
+          {/* <User01 className=" size-4" /> */}
         </TextInput>
         <Button variant="grey-filled">
           <FilterLines className=" size-4" />

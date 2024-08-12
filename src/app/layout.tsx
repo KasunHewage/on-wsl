@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
 import { ToastContainer } from "react-toastify";
 import Toast from "@/components/common/alert/Toast";
+import GuardProvider from "@/providers/GuardProvider";
 
 export default function RootLayout({
   children,
@@ -20,17 +21,19 @@ export default function RootLayout({
       <PrelineScript>
         <body className=" bg-base-white dark:bg-solid-dark-base font-base overflow-hidden">
           <StoreProvider>
-            <ThemeProvider
-              attribute="class"
-              enableSystem={false}
-              disableTransitionOnChange
-            >
-              <ReactQueryClientProvider>
-                {children}
-                <Toast />
-                {/* <ToastContainer /> */}
-              </ReactQueryClientProvider>
-            </ThemeProvider>
+            <GuardProvider>
+              <ThemeProvider
+                attribute="class"
+                enableSystem={false}
+                disableTransitionOnChange
+              >
+                <ReactQueryClientProvider>
+                  {children}
+                  <Toast />
+                  {/* <ToastContainer /> */}
+                </ReactQueryClientProvider>
+              </ThemeProvider>
+            </GuardProvider>
           </StoreProvider>
         </body>
       </PrelineScript>

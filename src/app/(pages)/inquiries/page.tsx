@@ -72,8 +72,8 @@ const Page = () => {
       <div className=" w-2/5 flex flex-col">
         <div className=" flex flex-row items-center justify-between gap-x-2">
           <div className=" w-full">
-            <TextInput rounded="rounded-full" placeholder="Search">
-              <SearchLg className=" size-4" />
+            <TextInput placeholder="Search">
+              {/* <SearchLg className=" size-4" /> */}
             </TextInput>
           </div>
           <Button variant="grey-filled">
@@ -101,7 +101,7 @@ const Page = () => {
                     dispatch(
                       setCurrentThreadAct({
                         ...el,
-                      })
+                      }),
                     );
                   }}
                 >
