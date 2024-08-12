@@ -22,12 +22,12 @@ export default function RootLayout({
           <StoreProvider>
             <ThemeProvider
               attribute="class"
-              enableSystem
+              enableSystem={false}
               disableTransitionOnChange
             >
               <ReactQueryClientProvider>
                 {children}
-                <Toast/>
+                <Toast />
                 {/* <ToastContainer /> */}
               </ReactQueryClientProvider>
             </ThemeProvider>
