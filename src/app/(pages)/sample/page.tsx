@@ -1,20 +1,23 @@
 "use client";
-import { fetchDog } from "@/actions/actions";
-import { getMessageThreadById } from "@/actions/inquiry/thread";
-import Button from "@/components/common/button/Button";
-import React, { Suspense } from "react";
+import ChipInput from "@/components/common/input/ChipInput";
+import { Tabs, TabsList, TabsTrigger } from "@/components/common/tab/Tabs";
+import { Grid01, List, XClose } from "@untitled-ui/icons-react";
+import React, { Suspense, useState } from "react";
 
 const Page = () => {
-  const fetchDoggy = async () => {
-    fetchDog();
-  };
   return (
     <div>
-      <Button onClick={() => getMessageThreadById({threadId:23})}>Click me!</Button>
-      <br />
-      <Suspense fallback={<p>Loading...</p>}>
-        <Card />
-      </Suspense>
+      <Tabs defaultValue={"Dambulla"}>
+        <TabsList variant="icon">
+          <TabsTrigger variant="icon" value={"Dambulla"}>
+            <Grid01 className=" size-5" />
+          </TabsTrigger>
+          <TabsTrigger variant="icon" value={"Colombo"}>
+            <List className="size-5" />
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <ChipInput />
     </div>
   );
 };

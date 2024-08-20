@@ -4,7 +4,7 @@ import { fetchTblData } from "@/actions/actions";
 import {
   TblBodyRowTypes,
   TblHeadRowTypes,
-} from "@/components/common/table/types/tableTypes";
+} from "@/components/common/table/ts/tableTypes";
 import TableHeader from "@/components/common/table/TableHeader";
 import Table from "@/components/common/table/Table";
 import Pagination from "@/components/common/pagination/Pagination";
@@ -37,7 +37,6 @@ let tblHeadRow: TblHeadRowTypes[] = [
     align: undefined,
     sortable: undefined,
   },
-  // TODO : make action
   {
     key: "action",
     value: "Action",
@@ -58,7 +57,6 @@ const Page = () => {
   }, [currentPage]);
 
   const fetchDataHandler = async (getPage: number) => {
-
     const {
       data,
       status,
@@ -96,7 +94,7 @@ const Page = () => {
   };
 
   return (
-    <>
+    <div>
       <TableHeader />
       <Table head={tblHeadRow} body={tblBody} />
       {totalPages > 1 && (
@@ -106,7 +104,7 @@ const Page = () => {
           onPageChange={handlePageChange}
         />
       )}
-    </>
+    </div>
   );
 };
 

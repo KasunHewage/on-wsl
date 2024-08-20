@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { TblBodyRowTypes, TblHeadRowTypes } from "./types/tableTypes";
+import { TblBodyRowTypes, TblHeadRowTypes } from "./ts/tableTypes";
 import TableSkeleton from "./TableSkeleton";
 import Button from "../button/Button";
 import { ChevronDown, ChevronUp } from "@untitled-ui/icons-react";
@@ -8,11 +8,12 @@ import { ChevronDown, ChevronUp } from "@untitled-ui/icons-react";
 type TblPropTypes = {
   head: TblHeadRowTypes[];
   body: any[];
+  variant?: "default" | "zebra";
 };
 
-const Table: React.FC<TblPropTypes> = ({ head, body }) => {
+const Table: React.FC<TblPropTypes> = ({ head, body, variant = "default" }) => {
   const [tblHeadData] = useState<TblHeadRowTypes[]>([...head]);
-  const [tblData, setTblData]: any = useState([]);
+  const [tblData, setTblData] = useState<TblBodyRowTypes[]>([]);
 
   useEffect(() => {
     setTblData([...body]);
@@ -26,6 +27,8 @@ const Table: React.FC<TblPropTypes> = ({ head, body }) => {
         } else {
           head[i].order = "desc";
         }
+      } else {
+        head[i].order = undefined;
       }
     });
     let sortedTblData: any = tblData.sort((a: any, b: any) => {
@@ -79,11 +82,13 @@ const Table: React.FC<TblPropTypes> = ({ head, body }) => {
                         {el.sortable && (
                           <>
                             {el.order === "desc" || el.order === undefined ? (
-                              <ChevronDown className=" size-3"
+                              <ChevronDown
+                                className=" size-3"
                                 onClick={() => sortingHandler(el.key)}
                               />
                             ) : (
-                              <ChevronUp className=" size-3"
+                              <ChevronUp
+                                className=" size-3"
                                 onClick={() => sortingHandler(el.key)}
                               />
                             )}
@@ -106,7 +111,10 @@ const Table: React.FC<TblPropTypes> = ({ head, body }) => {
                   {tblData.map((el: TblBodyRowTypes | any, i: number) => (
                     <tr
                       key={i}
-                      className="hover:bg-gray-100 dark:hover:bg-gray-100 cursor-pointer h-16 text-gray-700 dark:text-solid-base"
+                      className={` ${
+                        variant === "zebra" &&
+                        "odd:bg-solid-base even:bg-gray-100 dark:odd:bg-solid-dark-base dark:even:bg-gray-dark-100"
+                      } hover:bg-gray-100 dark:hover:bg-gray-dark-100 cursor-pointer h-16 text-gray-700 dark:text-solid-base`}
                     >
                       {Object.keys(el).map((key: any, i: number) => (
                         <td
@@ -117,9 +125,7 @@ const Table: React.FC<TblPropTypes> = ({ head, body }) => {
                         </td>
                       ))}
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <Button variant="secondary-filled">
-                          Delete
-                        </Button>
+                        <Button variant="secondary-filled">Delete</Button>
                       </td>
                     </tr>
                   ))}

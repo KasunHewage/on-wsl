@@ -35,33 +35,35 @@ const indexServiceAction = async ({
       ...(headers && { headers: { ...headers } }),
       ...props,
     });
-
     if (!response.ok) {
       switch (response.status) {
         case 500:
           throw new Error("Service failed!", { cause: "SERVER_APP" });
-
         case 400:
-          throw new Error("Invalid data were passes!"!, {
+          throw new Error("Invalid data were passes!", {
             cause: "SERVER_APP",
           });
         default:
-          throw new Error("Service failed!", { cause: "SERVER_APP" });
+          throw new Error("Failed to connect the server!", {
+            cause: "CLIENT_APP",
+          });
       }
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    logger.error("Service failed | ");
     if (error instanceof Error) {
       if (error.cause === "SERVER_APP") {
+        logger.error(`${error.cause} | ${error.message}`);
         throw new Error(error.message, { cause: error.cause });
       } else {
+        logger.error(`${error.cause} | ${error.message}`);
         throw new Error("Service unavailable!", { cause: "CLIENT_APP" });
       }
     }
-    throw new Error("Service unavailable!", { cause: "CLIENT_APP" });
+    logger.error("CLIENT_APP | Failed to connect the server!");
+    throw new Error("Failed to connect the server!", { cause: "CLIENT_APP" });
   }
 };
 

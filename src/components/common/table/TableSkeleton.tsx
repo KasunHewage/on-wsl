@@ -1,5 +1,5 @@
 import React from "react";
-import { TableSkeletonPropTypes } from "./types/tableTypes";
+import { TableSkeletonPropTypes } from "./ts/tableTypes";
 
 const TableSkeleton: React.FC<TableSkeletonPropTypes> = ({ columns }) => {
   return (
